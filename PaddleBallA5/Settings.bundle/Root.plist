@@ -49,24 +49,6 @@
 			<string>PSSliderSpecifier</string>
 		</dict>
 		<dict>
-			<key>AutocapitalizationType</key>
-			<string>AllCharacters</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-			<key>DefaultValue</key>
-			<string>Y</string>
-			<key>IsSecure</key>
-			<false/>
-			<key>Key</key>
-			<string>Ball.Color</string>
-			<key>KeyboardType</key>
-			<string>Alphabet</string>
-			<key>Title</key>
-			<string>Ball Color</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-		</dict>
-		<dict>
 			<key>Title</key>
 			<string>Paddle Elasticity</string>
 			<key>Type</key>
@@ -111,52 +93,6 @@
 			<string>PSSliderSpecifier</string>
 		</dict>
 		<dict>
-			<key>Title</key>
-			<string>Paddle Width</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<integer>80</integer>
-			<key>Key</key>
-			<string>Paddle.Width</string>
-			<key>MaximumValue</key>
-			<integer>160</integer>
-			<key>MaximumValueImage</key>
-			<string></string>
-			<key>MinimumValue</key>
-			<integer>40</integer>
-			<key>MinimumValueImage</key>
-			<string></string>
-			<key>Type</key>
-			<string>PSSliderSpecifier</string>
-		</dict>
-		<dict>
-			<key>AutocapitalizationType</key>
-			<string>AllCharacters</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-			<key>DefaultValue</key>
-			<string>G</string>
-			<key>IsSecure</key>
-			<false/>
-			<key>Key</key>
-			<string>Paddle.Color</string>
-			<key>KeyboardType</key>
-			<string>Alphabet</string>
-			<key>Title</key>
-			<string>Paddle Color</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>Court</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
@@ -165,46 +101,6 @@
 			<string>Sound F/X Enabled</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>AutocapitalizationType</key>
-			<string>AllCharacters</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-			<key>DefaultValue</key>
-			<string>B</string>
-			<key>IsSecure</key>
-			<false/>
-			<key>Key</key>
-			<string>Court.Color</string>
-			<key>KeyboardType</key>
-			<string>Alphabet</string>
-			<key>Title</key>
-			<string>Court Color</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>Brick Corner Radius</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<integer>5</integer>
-			<key>Key</key>
-			<string>Corner.Radius</string>
-			<key>MaximumValue</key>
-			<integer>25</integer>
-			<key>MaximumValueImage</key>
-			<string></string>
-			<key>MinimumValue</key>
-			<integer>0</integer>
-			<key>MinimumValueImage</key>
-			<string></string>
-			<key>Type</key>
-			<string>PSSliderSpecifier</string>
 		</dict>
 		<dict>
 			<key>Title</key>

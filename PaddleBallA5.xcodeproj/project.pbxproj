@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		880417451B1E75F700B85DA5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88524C991B1A659500C2CB7F /* Settings.bundle */; };
 		88E0E38C1B1907CC003C73FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E38B1B1907CC003C73FD /* AppDelegate.swift */; };
-		88E0E38E1B1907CC003C73FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E38D1B1907CC003C73FD /* ViewController.swift */; };
-		88E0E3911B1907CC003C73FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88E0E38F1B1907CC003C73FD /* Main.storyboard */; };
-		88E0E3931B1907CC003C73FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88E0E3921B1907CC003C73FD /* Images.xcassets */; };
 		88E0E3961B1907CC003C73FD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88E0E3941B1907CC003C73FD /* LaunchScreen.xib */; };
 		88E0E3A21B1907CC003C73FD /* PaddleBallA5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3A11B1907CC003C73FD /* PaddleBallA5Tests.swift */; };
+		88E0E3AC1B190866003C73FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88E0E3AB1B190866003C73FD /* Main.storyboard */; };
+		88E0E3AE1B190873003C73FD /* BallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3AD1B190873003C73FD /* BallViewController.swift */; };
+		88E0E3B01B19087D003C73FD /* BreakoutBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3AF1B19087D003C73FD /* BreakoutBehavior.swift */; };
+		88E0E3B21B190888003C73FD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3B11B190888003C73FD /* User.swift */; };
+		88E0E3B41B19F2A6003C73FD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3B31B19F2A6003C73FD /* SettingsViewController.swift */; };
+		88E0E3B61B1A16EF003C73FD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3B51B1A16EF003C73FD /* Settings.swift */; };
+		88E0E3D11B1A4C3C003C73FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88E0E3D01B1A4C3C003C73FD /* Images.xcassets */; };
+		88F27F101B20E8FF00C0CBDA /* jazzloop2_70.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 88F27F0F1B20E8FF00C0CBDA /* jazzloop2_70.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +32,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		88524C991B1A659500C2CB7F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		88E0E3861B1907CB003C73FD /* PaddleBallA5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaddleBallA5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88E0E38A1B1907CC003C73FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88E0E38B1B1907CC003C73FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		88E0E38D1B1907CC003C73FD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		88E0E3901B1907CC003C73FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		88E0E3921B1907CC003C73FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		88E0E3951B1907CC003C73FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		88E0E39B1B1907CC003C73FD /* PaddleBallA5Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaddleBallA5Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		88E0E3A01B1907CC003C73FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88E0E3A11B1907CC003C73FD /* PaddleBallA5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddleBallA5Tests.swift; sourceTree = "<group>"; };
+		88E0E3AB1B190866003C73FD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		88E0E3AD1B190873003C73FD /* BallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallViewController.swift; sourceTree = "<group>"; };
+		88E0E3AF1B19087D003C73FD /* BreakoutBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakoutBehavior.swift; sourceTree = "<group>"; };
+		88E0E3B11B190888003C73FD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		88E0E3B31B19F2A6003C73FD /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		88E0E3B51B1A16EF003C73FD /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		88E0E3D01B1A4C3C003C73FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		88F27F0F1B20E8FF00C0CBDA /* jazzloop2_70.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = jazzloop2_70.mp3; path = ../../../Assets/mp3/jazzloop2_70.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +89,15 @@
 		88E0E3881B1907CB003C73FD /* PaddleBallA5 */ = {
 			isa = PBXGroup;
 			children = (
-				88E0E38B1B1907CC003C73FD /* AppDelegate.swift */,
-				88E0E38D1B1907CC003C73FD /* ViewController.swift */,
-				88E0E38F1B1907CC003C73FD /* Main.storyboard */,
-				88E0E3921B1907CC003C73FD /* Images.xcassets */,
-				88E0E3941B1907CC003C73FD /* LaunchScreen.xib */,
+				88E0E3AB1B190866003C73FD /* Main.storyboard */,
+				88524C991B1A659500C2CB7F /* Settings.bundle */,
+				88E0E3B31B19F2A6003C73FD /* SettingsViewController.swift */,
+				88E0E3B51B1A16EF003C73FD /* Settings.swift */,
+				88E0E3B11B190888003C73FD /* User.swift */,
+				88E0E3AF1B19087D003C73FD /* BreakoutBehavior.swift */,
+				88E0E3AD1B190873003C73FD /* BallViewController.swift */,
+				88E0E3D01B1A4C3C003C73FD /* Images.xcassets */,
+				88F27F001B20AC1000C0CBDA /* Assets */,
 				88E0E3891B1907CC003C73FD /* Supporting Files */,
 			);
 			path = PaddleBallA5;
@@ -90,6 +106,8 @@
 		88E0E3891B1907CC003C73FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				88E0E38B1B1907CC003C73FD /* AppDelegate.swift */,
+				88E0E3941B1907CC003C73FD /* LaunchScreen.xib */,
 				88E0E38A1B1907CC003C73FD /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -110,6 +128,31 @@
 				88E0E3A01B1907CC003C73FD /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		88F27F001B20AC1000C0CBDA /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				88F27F011B20AC3A00C0CBDA /* Audio */,
+				88F27F021B20AC5900C0CBDA /* Fonts */,
+			);
+			name = Assets;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		88F27F011B20AC3A00C0CBDA /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				88F27F0F1B20E8FF00C0CBDA /* jazzloop2_70.mp3 */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
+		88F27F021B20AC5900C0CBDA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +204,7 @@
 				TargetAttributes = {
 					88E0E3851B1907CB003C73FD = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 7P9362E76E;
 					};
 					88E0E39A1B1907CC003C73FD = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -192,9 +236,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88E0E3911B1907CC003C73FD /* Main.storyboard in Resources */,
+				880417451B1E75F700B85DA5 /* Settings.bundle in Resources */,
+				88F27F101B20E8FF00C0CBDA /* jazzloop2_70.mp3 in Resources */,
+				88E0E3D11B1A4C3C003C73FD /* Images.xcassets in Resources */,
+				88E0E3AC1B190866003C73FD /* Main.storyboard in Resources */,
 				88E0E3961B1907CC003C73FD /* LaunchScreen.xib in Resources */,
-				88E0E3931B1907CC003C73FD /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +258,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88E0E38E1B1907CC003C73FD /* ViewController.swift in Sources */,
+				88E0E3B61B1A16EF003C73FD /* Settings.swift in Sources */,
+				88E0E3AE1B190873003C73FD /* BallViewController.swift in Sources */,
+				88E0E3B01B19087D003C73FD /* BreakoutBehavior.swift in Sources */,
+				88E0E3B21B190888003C73FD /* User.swift in Sources */,
+				88E0E3B41B19F2A6003C73FD /* SettingsViewController.swift in Sources */,
 				88E0E38C1B1907CC003C73FD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,14 +286,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		88E0E38F1B1907CC003C73FD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				88E0E3901B1907CC003C73FD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		88E0E3941B1907CC003C73FD /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -342,6 +384,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PaddleBallA5/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -352,6 +395,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PaddleBallA5/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -411,6 +455,7 @@
 				88E0E3A71B1907CC003C73FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		88E0E3A81B1907CC003C73FD /* Build configuration list for PBXNativeTarget "PaddleBallA5Tests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +464,7 @@
 				88E0E3AA1B1907CC003C73FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

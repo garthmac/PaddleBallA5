@@ -7,49 +7,49 @@
 //
 
 import UIKit
+import AVFoundation
 
-class BallViewController: UIViewController, UICollisionBehaviorDelegate {
+class BallViewController: UIViewController, UICollisionBehaviorDelegate, AVAudioPlayerDelegate {
 
     @IBOutlet weak var gameView: UIView!
-    
-    let breakout = BreakoutBehavior()
+    var breakout = BreakoutBehavior()
+
+    struct Constants {
+        static let BallSize: CGFloat = 40.0
+        static let BallColor = "Yellow"
+        static let CourtColor = "Purple"
+        static let BoxPathName = "Box"
+        static let PaddlePathName = "Paddle"
+        static let PaddleColor = "Green"
+        static let PaddleSize = CGSize(width: 80.0, height: 20.0)
+        static let PaddleCornerRadius: CGFloat = 5.0
+        static let BrickColumns = 10
+        static let BallSpeed: Float = 1.0
+        static let BrickCornerRadius: CGFloat = 15.0
+        static let BrickTotalWidth: CGFloat = 1.0
+        static let BrickTotalHeight: CGFloat = 0.3
+        static let BrickTopSpacing: CGFloat = 0.05
+        static let BrickSpacing: CGFloat = 7.0
+        static let BrickColors = [UIColor.random, UIColor.random, UIColor.random]
+        //static let BrickColors = [UIColor.greenColor(), UIColor.blueColor(), UIColor.redColor(), UIColor.yellowColor()]
+    }
     lazy var animator: UIDynamicAnimator = { UIDynamicAnimator(referenceView: self.gameView) }()
-    var ballColor: CGColor = {
-        if let bc = NSUserDefaults.standardUserDefaults().stringForKey("Ball.Color") {
-            return UIColor.colorFor(bc).CGColor
-        } else { return UIColor.whiteColor().CGColor }
-    }()
-    lazy var paddleColor: CGColor = {
-        if let pc = NSUserDefaults.standardUserDefaults().stringForKey("Paddle.Color") {
-            return UIColor.colorFor(pc).CGColor
-        } else { return UIColor.whiteColor().CGColor }
-    }()
-    lazy var courtColor: CGColor = {
-        if let cc = NSUserDefaults.standardUserDefaults().stringForKey("Court.Color") {
-            return UIColor.colorFor(cc).colorWithAlphaComponent(0.6).CGColor
-        } else { return UIColor.blackColor().CGColor }
-    }()
     lazy var uid: String = {
         if let login = NSUserDefaults.standardUserDefaults().stringForKey("User.Login") {
             return login
         } else { return "" }
     }()
-    lazy var paddleSize: CGSize = {
-        if let pw = NSUserDefaults.standardUserDefaults().doubleForKey("Paddle.Width") as Double? {
-            if pw > 0 { return CGSize(width: pw, height: 20.0) }
-        }
-    return CGSize(width: 80.0, height: 20.0)
-    }()
-    lazy var soundOn: Bool = { return NSUserDefaults.standardUserDefaults().boolForKey("Sound.F/X")
-        }()
+    var paddleWidthMultiplier = 2
+    var paddleSize = Constants.PaddleSize
+    //lazy var soundOn: Bool = { return NSUserDefaults.standardUserDefaults().boolForKey("Sound.F/X") }()
     lazy var cornerRadius: CGFloat = {
         //The radius of each corner oval. A value of 0 results in a rectangle without rounded corners. Values larger than half the rectangle’s width or height are clamped appropriately to half the width or height.
         if let cr = Double(NSUserDefaults.standardUserDefaults().floatForKey("Corner.Radius")) as Double? {
             if cr > 0 { return CGFloat(cr) }
         }
-        return 5.0
+        return Constants.BrickCornerRadius
         }()
-    var score = 0
+    
     private var bricks = [Int:Brick]()
     //Store this structure for each brick in a dictionary:
     private struct Brick {
@@ -59,53 +59,97 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate {
     }
     private typealias BrickAction = ((Int) -> Void)?
     
+    //To start balls automatically, add a timer which periodically checks, if there is a ball (or the maximum number of balls) and push them if necessary.
+    var autoStartTimer: NSTimer?
+    var audioPlayer: AVAudioPlayer!
+    func prepareAudios() {
+        let path = NSBundle.mainBundle().pathForResource("jazzloop2_70", ofType: "mp3")
+        let url = NSURL.fileURLWithPath(path!)
+        audioPlayer = AVAudioPlayer(contentsOfURL: url, error: nil)
+        audioPlayer.delegate = self
+        audioPlayer.prepareToPlay()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareAudios()
+        self.hidesBottomBarWhenPushed = true
         animator.addBehavior(breakout)
+        let defaultColumns = min(Int(gameView.bounds.maxX / paddleSize.width), Constants.BrickColumns)
+        Settings(defaultColumns: defaultColumns, defaultRows: defaultColumns / 2, defaultBalls: 1, defaultDifficulty: 1, defaultSpeed: Constants.BallSpeed, defaultBallColor: Constants.BallColor, defaultCourtColor: Constants.CourtColor, defaultPaddleColor: Constants.PaddleColor, defaultPaddleWidthMultiplier: paddleWidthMultiplier, defaultBrickCornerRadius: Float(Constants.BrickCornerRadius) )
         gameView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "pushBall:"))
-        gameView.layer.backgroundColor = courtColor
+        gameView.layer.backgroundColor = UIColor.colorFor(Settings().courtColor).CGColor
         //The pan gesture handles most movement. However in the heat of the game it might be necessary to move faster-that’s what the left and right swipe gestures r4
         gameView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "panPaddle:"))
+        gameView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: "showTabBar:"))
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swipePaddleLeft:")
         swipeLeft.direction = .Left
         gameView.addGestureRecognizer(swipeLeft)
         let swipeRight = UISwipeGestureRecognizer(target: self, action: "swipePaddleRight:")
         swipeRight.direction = .Right
         gameView.addGestureRecognizer(swipeRight)
-        
         breakout.collisionDelegate = self
-        //Because my game has only one level I define it when the view did load:
+        self.tabBarController?.tabBar.hidden = true
         levelOne()
     }
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        if let bc = NSUserDefaults.standardUserDefaults().stringForKey("Ball.Color") {
-            ballColor = UIColor.colorFor(bc).CGColor
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        //Settings().type stuff set here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        breakout.speed = CGFloat(Settings().speed!)
+        breakout.ballBehavior.allowsRotation = Settings().ballRotation
+        gameView.layer.backgroundColor = UIColor.colorFor(Settings().courtColor).CGColor
+        
+        let pw = (CGFloat(Settings().paddleWidthMultiplier!) * Constants.BallSize)
+        paddleSize = CGSize(width: pw, height: 20.0)
+        paddle.frame.size = paddleSize
+        paddle.layer.backgroundColor = UIColor.colorFor(Settings().paddleColor).CGColor
+        
+        if Settings().soundOn { self.audioPlayer.play() }
+        cornerRadius = CGFloat(Settings().cornerRadius!) * BallViewController.Constants.BrickCornerRadius
+        if Settings().changed {
+            Settings().changed = false
+            for (index, brick) in bricks {
+                brick.view.removeFromSuperview()
+            }
+            bricks.removeAll(keepCapacity: true)
+            
+            for ball in breakout.balls {
+                ball.removeFromSuperview()
+            }
+            animator.removeAllBehaviors()
+            breakout = BreakoutBehavior()
+            animator.addBehavior(breakout)
+            breakout.collisionDelegate = self
+            levelOne()
         }
-        if let pc = NSUserDefaults.standardUserDefaults().stringForKey("Paddle.Color") {
-            paddleColor = UIColor.colorFor(pc).CGColor
-        }
-        if let cc = NSUserDefaults.standardUserDefaults().stringForKey("Court.Color") {
-            courtColor = UIColor.colorFor(cc).CGColor
-        }
-        if let login = NSUserDefaults.standardUserDefaults().stringForKey("User.Login") {
-            uid = login
-        }
-        if let pw = NSUserDefaults.standardUserDefaults().doubleForKey("Paddle.Width") as Double? {
-            paddleSize = CGSize(width: pw, height: 20.0)
-        }
-        if NSUserDefaults.standardUserDefaults().boolForKey("Sound.F/X") == true {
-            soundOn = true
-        } else { soundOn = false }
-        if let cr = Double(NSUserDefaults.standardUserDefaults().floatForKey("Corner.Radius")) as Double? {
-            cornerRadius = CGFloat(cr)
+        setAutoStartTimer()
+      }
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        autoStartTimer?.invalidate()
+        autoStartTimer = nil
+    }
+    //The timer will be started only when the configuration is set to do so:
+    private func setAutoStartTimer() {
+        if Settings().autoStart {
+            autoStartTimer =  NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "fireAutoStart:", userInfo: nil, repeats: true)
         }
     }
+    //When the timer fires – and there are not “enough” balls, create a new one, place it, add it to the behavior and push it:
+    func fireAutoStart(timer: NSTimer) {
+        if breakout.balls.count < Settings().balls {
+            let ball = createBall()
+            placeBall(ball)
+            breakout.addBall(ball)
+            breakout.pushBall(breakout.balls.last!)
+        }
+    }
+    var score = 0
+    // MARK: - ball
     func createBall() -> UIView {
         let ballSize = CGSize(width: Constants.BallSize, height: Constants.BallSize)
         let ball = UIView(frame: CGRect(origin: CGPoint.zeroPoint, size: ballSize))
-        //ball.backgroundColor = ballColor
-        ball.layer.backgroundColor = ballColor
+        score -= 1
+        ball.layer.backgroundColor = UIColor.colorFor(Settings().ballColor).CGColor
         if let loggedInUser = User.login(uid, password: "foo") {
             ball.layer.contents = loggedInUser.image!.CGImage
             ball.layer.contentsGravity = kCAGravityCenter
@@ -126,7 +170,8 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate {
     }
     func pushBall(gesture: UITapGestureRecognizer) { //*** lots happening here!
         if gesture.state == .Ended {
-            if breakout.balls.count == 0 {
+            //if breakout.balls.count == 0 {
+            if breakout.balls.count < Settings().balls {
                 let ball = createBall()
                 placeBall(ball)
                 breakout.addBall(ball)
@@ -135,28 +180,10 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate {
         }
     }
     
-    struct Constants {
-        static let BallSize: CGFloat = 40.0
-        //static let BallColor = UIColor.yellowColor()
-        static let BoxPathName = "Box"
-        static let PaddlePathName = "Paddle"
-        //static let PaddleSize = CGSize(width: 80.0, height: 20.0)
-        static let PaddleCornerRadius: CGFloat = 5.0
-        //static let PaddleColor = UIColor.greenColor()
-        //static let BrickColumns = 10
-        //static let BrickRows = 5
-        static let BrickTotalWidth: CGFloat = 1.0
-        static let BrickTotalHeight: CGFloat = 0.3
-        static let BrickTopSpacing: CGFloat = 0.05
-        static let BrickSpacing: CGFloat = 7.0
-        //static let BrickCornerRadius: CGFloat = 5.0
-        //static let BrickColors = [UIColor.greenColor(), UIColor.blueColor(), UIColor.redColor(), UIColor.yellowColor()]
-        static let BrickColors = [UIColor.random, UIColor.random]
-    }
-    
+    // MARK: - paddle
     lazy var paddle: UIView = {
         let paddle = UIView(frame: CGRect(origin: CGPoint(x: -1 , y: -1), size: self.paddleSize))
-        paddle.layer.backgroundColor = self.paddleColor
+        paddle.layer.backgroundColor = UIColor.colorFor(Settings().paddleColor).CGColor
         paddle.layer.cornerRadius = Constants.PaddleCornerRadius
         paddle.layer.borderColor = UIColor.blackColor().CGColor
         paddle.layer.borderWidth = 2.0
@@ -182,14 +209,12 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate {
         placeBricks()
         //When the paddle is outside the game view (at the beginning and possibly after device roatation), reset its position:
         resetPaddle()
-//        println("paddle = \(paddle.frame.origin)")
-//        println("maxY = \(gameView.bounds)")
-//            let halfPaddleWidth = Constants.PaddleSize.width / 2
-//            let center = gameView.bounds.maxX / 2 - halfPaddleWidth
-//            println("center = \(center)")
-//            let x = center - paddle.frame.origin.x
-//            println("x = \(x)")
-//            placePaddle(CGPoint(x: x, y: 0))
+        for ball in breakout.balls {
+            if !CGRectContainsRect(gameView.bounds, ball.frame) {
+                placeBall(ball)
+                animator.updateItemUsingCurrentState(ball)
+            }
+        }
     }
     func resetPaddle() {
         paddle.center = CGPoint(x: gameView.bounds.midX, y: gameView.bounds.maxY - paddle.bounds.height)
@@ -205,6 +230,13 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate {
         case .Changed:
             placePaddle(gesture.translationInView(gameView))
             gesture.setTranslation(CGPointZero, inView: gameView)
+        default: break
+        }
+    }
+    func showTabBar(gesture: UIPinchGestureRecognizer) {
+        switch gesture.state {
+        case .Ended:
+            self.tabBarController?.tabBar.hidden = false
         default: break
         }
     }
@@ -230,7 +262,8 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate {
         paddle.frame.origin = origin
         addPaddleBarrier()
     }
-    //Placing the bricks, just takes the relative frame information boosts it to the device dimensions, and adjusts the barriers for the collision behavior:
+    // MARK: - bricks 
+    //just takes the relative frame information boosts it to the device dimensions, and adjusts the barriers for the collision behavior:
     func placeBricks() {
         for (index, brick) in bricks {
             brick.view.frame.origin.x = brick.relativeFrame.origin.x * gameView.bounds.width
@@ -241,20 +274,20 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate {
             breakout.addBarrier(UIBezierPath(roundedRect: brick.view.frame, cornerRadius: cornerRadius), named: index)
         }
     }
+    // MARK: - Lifecycle
     func levelOne() {
         if bricks.count > 0 { return }
-        let brickColumns = min(Int(gameView.bounds.maxX / paddleSize.width), 10)
-        let brickRows = brickColumns / 2        //more than 5 slows pushBall() too much
-        let deltaX = Constants.BrickTotalWidth / CGFloat(brickColumns)
-        let deltaY = Constants.BrickTotalHeight / CGFloat(brickRows)
+        //To use the number of rows and columns from the settings use those values in setup...
+        let deltaX = Constants.BrickTotalWidth / CGFloat(Settings().columns!)
+        let deltaY = Constants.BrickTotalHeight / CGFloat(Settings().rows!)
         var frame = CGRect(origin: CGPointZero, size: CGSize(width: deltaX, height: deltaY))
-
-        for row in 0..<brickRows {
-            for column in 0..<brickColumns {
+        for row in 0..<Settings().rows! {
+            for column in 0..<Settings().columns! {
                 frame.origin.x = deltaX * CGFloat(column)
                 frame.origin.y = deltaY * CGFloat(row) + Constants.BrickTopSpacing
                 let brick = UIView(frame: frame)
-                brick.backgroundColor = Constants.BrickColors[row % Constants.BrickColors.count]
+                //brick.backgroundColor = Constants.BrickColors[row % Constants.BrickColors.count]
+                brick.backgroundColor = UIColor.random
                 brick.layer.cornerRadius = cornerRadius
                 brick.layer.borderWidth = 1.5
                 brick.layer.borderColor = UIColor.blackColor().CGColor
@@ -264,17 +297,21 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate {
                 gameView.addSubview(brick)
                 
                 var action: BrickAction = nil
-                if row + 1 == brickRows {
-                    brick.backgroundColor = UIColor.blackColor()
-                    action = { index in
-                        if brick.backgroundColor != UIColor.blackColor() {
-                            self.destroyBrickAtIndex(index)
-                        } else {
-                            NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: "changeBrickColor:", userInfo: brick, repeats: false)
+                //Add the “black” row only when the difficulty “hard” has been chosen:
+                if Settings().difficulty == 1 {
+                    if row + 1 == Settings().rows! {
+                    //if row + 1 == brickRows {
+                        brick.backgroundColor = UIColor.blackColor()
+                        action = { index in
+                            if brick.backgroundColor != UIColor.blackColor() {
+                                self.destroyBrickAtIndex(index)
+                            } else {
+                                NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: "changeBrickColor:", userInfo: brick, repeats: false)
+                            }
                         }
                     }
                 }
-                bricks[row * brickColumns + column] = Brick(relativeFrame: frame, view: brick, action: action)
+                bricks[row * Settings().columns! + column] = Brick(relativeFrame: frame, view: brick, action: action)
             }
         }
     }
@@ -296,7 +333,7 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate {
             }
         }
     }
-    //First remove the barrier – even if it. We core animation flip the brick (and make it slightly transparent). Afterwards add it to the behavior, and let it fade out completely. Finally remove the brick from the behavior, the game view and from the brick array:
+    //First remove the barrier – then core animate flip the brick (and make it slightly transparent). Afterwards add it to the behavior, and let it fade out completely. Finally remove the brick from the behavior, the game view and from the brick array:
     private func destroyBrickAtIndex(index: Int) {
         breakout.removeBarrier(index)
         if let brick = bricks[index] {
@@ -307,34 +344,63 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate {
                     UIView.animateWithDuration(1.2, animations: {  //1.0
                         brick.view.alpha = 0.0  //disappear
                         }, completion: { (success) -> Void in
-                            self.score += 1
+                            self.score += 10
                             self.breakout.removeBrick(brick.view)
                             brick.view.removeFromSuperview()
                     })
             })
             bricks.removeValueForKey(index)
+            if self.bricks.count == 0 {
+                self.levelFinished()
+            }
         }
     }
-
+    //Don’t forget to remove the timer when a game has finished, and start it again afterwards...setAutStart
+    func levelFinished() {
+        autoStartTimer?.invalidate()
+        autoStartTimer = nil
+        for ball in breakout.balls {
+            breakout.removeBall(ball)
+        }
+        if NSClassFromString("UIAlertController") != nil {
+            let alertController = UIAlertController(title: "You Won!  score = \(score)", message: "", preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "Play Again", style: .Default, handler: { (action) in
+                self.score = 0
+                self.levelOne()
+                self.setAutoStartTimer()
+            }))
+            alertController.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (action) in
+                self.score = 0
+                exit(0)
+            }))
+            presentViewController(alertController, animated: true, completion: nil)
+        } else {
+            let alertView = UIAlertView(title: "Game Over", message: "asdf", delegate: self, cancelButtonTitle: "Play Again")
+            alertView.show()
+        }
+    }
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        levelOne()
+        setAutoStartTimer()
+        placeBricks()
+    }
 }
 
 private extension UIColor {
     class func colorFor(sel: String) -> UIColor {
         switch sel {
-        case "G": return UIColor.greenColor()
-        case "B": return UIColor.blueColor()
-        case "O": return UIColor.orangeColor()
-        case "R": return UIColor.redColor()
-        case "P": return UIColor.purpleColor()
-        case "Y": return UIColor.yellowColor()
-        case "C": return UIColor.cyanColor()
-        case "W": return UIColor.whiteColor()
+        case "Green": return UIColor.greenColor()
+        case "Blue": return UIColor.blueColor()
+        case "Orange": return UIColor.orangeColor()
+        case "Red": return UIColor.redColor()
+        case "Purple": return UIColor.purpleColor()
+        case "Yellow": return UIColor.yellowColor()
+        case "Cyan": return UIColor.cyanColor()
+        case "White": return UIColor.whiteColor()
+        case "Black": return UIColor.blackColor()
         default: return UIColor.blackColor()
         }
     }
-}
-
-private extension UIColor {
     class var random: UIColor {
         switch arc4random() % 10 {
         case 0: return UIColor.greenColor()
@@ -352,12 +418,8 @@ private extension UIColor {
     }
 }
 
-// User is our Model,
-// so it can't itself have anything UI-related
-// but we can add a UI-specific property
-// just for us to use
-// because we are the Controller
-// note this extension is private
+// User can't itself have anything UI-related
+// but we can add a private UI-specific property
 private extension User {
     var image: UIImage? {
         if let image = UIImage(named: login) {

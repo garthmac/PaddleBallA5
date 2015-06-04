@@ -75,9 +75,11 @@ class BreakoutBehavior: UIDynamicBehavior {
         ballBehavior.removeItem(ball)
         ball.removeFromSuperview()
     }
+    //To change the speed of the ball, add var and use it as magnitude when pushing the ball:
+    var speed: CGFloat = 1.0
     func pushBall(ball: UIView) {
         let push = UIPushBehavior(items: [ball], mode: .Instantaneous)
-        push.magnitude = 1.0
+        push.magnitude = speed
         push.angle = CGFloat(Double(arc4random()) * M_PI * 2 / Double(UINT32_MAX))
 //        println("radians = \(push.angle)")
         push.action = { [weak push] in

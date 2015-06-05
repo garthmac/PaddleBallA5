@@ -25,7 +25,7 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
         static let PaddleCornerRadius: CGFloat = 5.0
         static let BrickColumns = 10
         static let BallSpeed: Float = 1.0
-        static let BrickCornerRadius: CGFloat = 15.0
+        static let BrickCornerRadius: CGFloat = 10.0
         static let BrickTotalWidth: CGFloat = 1.0
         static let BrickTotalHeight: CGFloat = 0.3
         static let BrickTopSpacing: CGFloat = 0.05
@@ -67,6 +67,7 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
         let url = NSURL.fileURLWithPath(path!)
         audioPlayer = AVAudioPlayer(contentsOfURL: url, error: nil)
         audioPlayer.delegate = self
+        audioPlayer.numberOfLoops = 99 //-1 means continuous
         audioPlayer.prepareToPlay()
     }
     override func viewDidLoad() {

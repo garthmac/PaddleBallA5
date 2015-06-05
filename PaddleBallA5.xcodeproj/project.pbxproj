@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		880417451B1E75F700B85DA5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88524C991B1A659500C2CB7F /* Settings.bundle */; };
+		88A3078C1B2219C7000F3159 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88524C991B1A659500C2CB7F /* Settings.bundle */; };
+		88A3078E1B221A1B000F3159 /* jazzloop2_70.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 88A3078D1B221A1B000F3159 /* jazzloop2_70.mp3 */; };
 		88E0E38C1B1907CC003C73FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E38B1B1907CC003C73FD /* AppDelegate.swift */; };
 		88E0E3961B1907CC003C73FD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88E0E3941B1907CC003C73FD /* LaunchScreen.xib */; };
 		88E0E3A21B1907CC003C73FD /* PaddleBallA5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3A11B1907CC003C73FD /* PaddleBallA5Tests.swift */; };
@@ -18,7 +19,6 @@
 		88E0E3B41B19F2A6003C73FD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3B31B19F2A6003C73FD /* SettingsViewController.swift */; };
 		88E0E3B61B1A16EF003C73FD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3B51B1A16EF003C73FD /* Settings.swift */; };
 		88E0E3D11B1A4C3C003C73FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88E0E3D01B1A4C3C003C73FD /* Images.xcassets */; };
-		88F27F101B20E8FF00C0CBDA /* jazzloop2_70.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 88F27F0F1B20E8FF00C0CBDA /* jazzloop2_70.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		88524C991B1A659500C2CB7F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		88A3078D1B221A1B000F3159 /* jazzloop2_70.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = jazzloop2_70.mp3; sourceTree = "<group>"; };
 		88E0E3861B1907CB003C73FD /* PaddleBallA5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaddleBallA5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88E0E38A1B1907CC003C73FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88E0E38B1B1907CC003C73FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,7 +48,6 @@
 		88E0E3B31B19F2A6003C73FD /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		88E0E3B51B1A16EF003C73FD /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		88E0E3D01B1A4C3C003C73FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		88F27F0F1B20E8FF00C0CBDA /* jazzloop2_70.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = jazzloop2_70.mp3; path = ../../../Assets/mp3/jazzloop2_70.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +97,7 @@
 				88E0E3AF1B19087D003C73FD /* BreakoutBehavior.swift */,
 				88E0E3AD1B190873003C73FD /* BallViewController.swift */,
 				88E0E3D01B1A4C3C003C73FD /* Images.xcassets */,
-				88F27F001B20AC1000C0CBDA /* Assets */,
+				88A3078D1B221A1B000F3159 /* jazzloop2_70.mp3 */,
 				88E0E3891B1907CC003C73FD /* Supporting Files */,
 			);
 			path = PaddleBallA5;
@@ -128,31 +128,6 @@
 				88E0E3A01B1907CC003C73FD /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		88F27F001B20AC1000C0CBDA /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				88F27F011B20AC3A00C0CBDA /* Audio */,
-				88F27F021B20AC5900C0CBDA /* Fonts */,
-			);
-			name = Assets;
-			path = ..;
-			sourceTree = "<group>";
-		};
-		88F27F011B20AC3A00C0CBDA /* Audio */ = {
-			isa = PBXGroup;
-			children = (
-				88F27F0F1B20E8FF00C0CBDA /* jazzloop2_70.mp3 */,
-			);
-			name = Audio;
-			sourceTree = "<group>";
-		};
-		88F27F021B20AC5900C0CBDA /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,8 +211,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				880417451B1E75F700B85DA5 /* Settings.bundle in Resources */,
-				88F27F101B20E8FF00C0CBDA /* jazzloop2_70.mp3 in Resources */,
+				88A3078C1B2219C7000F3159 /* Settings.bundle in Resources */,
+				88A3078E1B221A1B000F3159 /* jazzloop2_70.mp3 in Resources */,
 				88E0E3D11B1A4C3C003C73FD /* Images.xcassets in Resources */,
 				88E0E3AC1B190866003C73FD /* Main.storyboard in Resources */,
 				88E0E3961B1907CC003C73FD /* LaunchScreen.xib in Resources */,

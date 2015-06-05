@@ -88,23 +88,34 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBAction func ballsChanged(sender: UIStepper) {
         balls = Int(sender.value)
         Settings().balls = balls
+        Settings().changed = true
     }
     @IBAction func paddleWidthChanged(sender: UIStepper) {
         paddleWidthMultiplier = Int(sender.value)
         Settings().paddleWidthMultiplier = paddleWidthMultiplier
+        Settings().changed = true
     }
     @IBAction func difficultyChanged(sender: UISegmentedControl) {
         Settings().difficulty = difficulty
-        Settings().changed = true
+        if difficulty == 0 {
+            paddleWidthMultiplier = max(paddleWidthMultiplier, 4)
+        }
+        else {
+            paddleWidthMultiplier = min(paddleWidthMultiplier, 2)
+        }
+        paddleWidthChanged(paddleWidthStepper)
     }
     @IBAction func autoStartChanged(sender: UISwitch) {
         Settings().autoStart = autoStart
+        Settings().changed = true
     }
     @IBAction func ballRotationChanged(sender: UISwitch) {
         Settings().ballRotation = ballRotation
+        Settings().changed = true
     }
     @IBAction func soundChanged(sender: UISwitch) {
         Settings().soundOn = sound
+        Settings().changed = true
     }
     var speed: Float {
         get { return speedSlider.value / 100.0}
@@ -116,6 +127,7 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBAction func speedChanged(sender: UISlider) {
         speed = sender.value / 100.0
         Settings().speed = speed
+        Settings().changed = true
     }
     var cornerRadius: Float {
         get { return brickRadiusSlider.value / 100.0}
@@ -160,9 +172,10 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBAction func columnsChanged(sender: UISlider) {
         columns = Int(sender.value)
         if columns > 11 {
-            cornerRadius = min(cornerRadius, cornerRadius / 4.0)
+            cornerRadius = min(cornerRadius, 1.0)
             radiusChanged(brickRadiusSlider)
         }
+        //println("cornerRadius = \(cornerRadius) speed = \(speed)")
         Settings().columns = columns
         Settings().changed = true
     }
@@ -175,10 +188,6 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     @IBAction func rowsChanged(sender: UISlider) {
         rows = Int(sender.value)
-        if rows > 3 {
-            cornerRadius = min(cornerRadius, cornerRadius / 4.0)
-            radiusChanged(brickRadiusSlider)
-        }
         Settings().rows = rows
         Settings().changed = true
     }

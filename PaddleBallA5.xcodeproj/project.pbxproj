@@ -19,6 +19,9 @@
 		88E0E3B41B19F2A6003C73FD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3B31B19F2A6003C73FD /* SettingsViewController.swift */; };
 		88E0E3B61B1A16EF003C73FD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0E3B51B1A16EF003C73FD /* Settings.swift */; };
 		88E0E3D11B1A4C3C003C73FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88E0E3D01B1A4C3C003C73FD /* Images.xcassets */; };
+		88EBF2791B22CE9A0090A5A0 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 88EBF2781B22CE9A0090A5A0 /* LICENSE */; };
+		88EBF27D1B22D1710090A5A0 /* paddle1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 88EBF27C1B22D1710090A5A0 /* paddle1.jpg */; };
+		88EBF27E1B22D1BC0090A5A0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 88EBF2761B22CE910090A5A0 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		88E0E3B31B19F2A6003C73FD /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		88E0E3B51B1A16EF003C73FD /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		88E0E3D01B1A4C3C003C73FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		88EBF2761B22CE910090A5A0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		88EBF2781B22CE9A0090A5A0 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		88EBF27C1B22D1710090A5A0 /* paddle1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paddle1.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,10 @@
 				88E0E3AD1B190873003C73FD /* BallViewController.swift */,
 				88E0E3D01B1A4C3C003C73FD /* Images.xcassets */,
 				88A3078D1B221A1B000F3159 /* jazzloop2_70.mp3 */,
+				88EBF2761B22CE910090A5A0 /* README.md */,
+				88EBF2781B22CE9A0090A5A0 /* LICENSE */,
+				88E0E3941B1907CC003C73FD /* LaunchScreen.xib */,
+				88EBF27C1B22D1710090A5A0 /* paddle1.jpg */,
 				88E0E3891B1907CC003C73FD /* Supporting Files */,
 			);
 			path = PaddleBallA5;
@@ -107,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				88E0E38B1B1907CC003C73FD /* AppDelegate.swift */,
-				88E0E3941B1907CC003C73FD /* LaunchScreen.xib */,
 				88E0E38A1B1907CC003C73FD /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -211,6 +220,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88EBF27E1B22D1BC0090A5A0 /* README.md in Resources */,
+				88EBF2791B22CE9A0090A5A0 /* LICENSE in Resources */,
+				88EBF27D1B22D1710090A5A0 /* paddle1.jpg in Resources */,
 				88A3078C1B2219C7000F3159 /* Settings.bundle in Resources */,
 				88A3078E1B221A1B000F3159 /* jazzloop2_70.mp3 in Resources */,
 				88E0E3D11B1A4C3C003C73FD /* Images.xcassets in Resources */,

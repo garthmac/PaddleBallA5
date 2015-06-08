@@ -95,6 +95,8 @@
 		88E0E3881B1907CB003C73FD /* PaddleBallA5 */ = {
 			isa = PBXGroup;
 			children = (
+				88EBF2761B22CE910090A5A0 /* README.md */,
+				88EBF2781B22CE9A0090A5A0 /* LICENSE */,
 				88E0E3AB1B190866003C73FD /* Main.storyboard */,
 				88524C991B1A659500C2CB7F /* Settings.bundle */,
 				88E0E3B31B19F2A6003C73FD /* SettingsViewController.swift */,
@@ -104,8 +106,6 @@
 				88E0E3AD1B190873003C73FD /* BallViewController.swift */,
 				88E0E3D01B1A4C3C003C73FD /* Images.xcassets */,
 				88A3078D1B221A1B000F3159 /* jazzloop2_70.mp3 */,
-				88EBF2761B22CE910090A5A0 /* README.md */,
-				88EBF2781B22CE9A0090A5A0 /* LICENSE */,
 				88E0E3941B1907CC003C73FD /* LaunchScreen.xib */,
 				88EBF27C1B22D1710090A5A0 /* paddle1.jpg */,
 				88E0E3891B1907CC003C73FD /* Supporting Files */,

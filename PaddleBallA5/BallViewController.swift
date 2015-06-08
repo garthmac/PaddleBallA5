@@ -164,7 +164,7 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
         return ball
     }
     func placeBall(ball: UIView) {
-        //ball.center = CGPoint(x: gameView.bounds.midX, y: gameView.bounds.midY)  //ball only game
+        //ball.center = CGPoint(x: gameView.bounds.midX, y: gameView.bounds.midY)  //from ball game
         var center = paddle.center
         center.y -= paddleSize.height/2 + Constants.BallSize/2
         ball.center = center
@@ -210,12 +210,6 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
         placeBricks()
         //When the paddle is outside the game view (at the beginning and possibly after device roatation), reset its position:
         resetPaddle()
-        for ball in breakout.balls {
-            if !CGRectContainsRect(gameView.bounds, ball.frame) {
-                placeBall(ball)
-                animator.updateItemUsingCurrentState(ball)
-            }
-        }
     }
     func resetPaddle() {
         paddle.center = CGPoint(x: gameView.bounds.midX, y: gameView.bounds.maxY - paddle.bounds.height)

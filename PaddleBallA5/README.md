@@ -9,7 +9,8 @@ uses Settings.bundle for secondary settings
 - for Ball.Elasticity, Ball.Friction, 
 - for Paddle.Elasticity, Paddle.Friction
 - for Sound F/X
-- optional userId...entering baddie gives a tennis ball
+- optional userId...entering any id gives a tennis ball
+  ...enter soccer for soccer ball
 
 Xcode 6.3.2 
 

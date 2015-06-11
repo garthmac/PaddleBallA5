@@ -35,18 +35,19 @@ class BallViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
     }
     lazy var animator: UIDynamicAnimator = { UIDynamicAnimator(referenceView: self.gameView) }()
     lazy var uid: String = {
-        if let login = NSUserDefaults.standardUserDefaults().stringForKey("User.Login") {
-            return login
-        } else { return "" }
+        let login = NSUserDefaults.standardUserDefaults().stringForKey("User.Login")
+        if login != nil {
+            return login!
+        }
+        return "baddie"
     }()
     var paddleWidthMultiplier = 2
     var paddleSize = Constants.PaddleSize
     //lazy var soundOn: Bool = { return NSUserDefaults.standardUserDefaults().boolForKey("Sound.F/X") }()
     lazy var cornerRadius: CGFloat = {
         //The radius of each corner oval. A value of 0 results in a rectangle without rounded corners. Values larger than half the rectangle’s width or height are clamped appropriately to half the width or height.
-        if let cr = Double(NSUserDefaults.standardUserDefaults().floatForKey("Corner.Radius")) as Double? {
-            if cr > 0 { return CGFloat(cr) }
-        }
+        let cr = NSUserDefaults.standardUserDefaults().floatForKey("Corner.Radius")
+        if cr != 0.0 { return CGFloat(cr) }
         return Constants.BrickCornerRadius
         }()
     
